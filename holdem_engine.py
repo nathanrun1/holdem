@@ -3,6 +3,10 @@ from cards import *
 
 class Pot:
     def __init__(self, players, rules):
+        if rules is None:
+            self.rules = default_rules
+        else:
+            self.rules = rules
         self.value = 0
         self.bets = {}
         self.history = []
@@ -20,7 +24,7 @@ class Pot:
                 print(f"Your bet: ${plr_bet}")
             min_raise = 0
             if self.highest_bet == 0:
-                min_raise = rules["BIG_BLIND"]
+                min_raise = self.rules["BIG_BLIND"]
             else:
                 min_raise = self.recent_raise + self.highest_bet
             to_call = self.highest_bet - plr_bet
@@ -151,7 +155,7 @@ class Pot:
                     self.side_pots.append((amnt, amnt_dist_value, amnt_dist_value, [player]))
             else:
                 print("Invalid Action")
-                self.action(self, player)
+                self.action(player)
 
 
 
